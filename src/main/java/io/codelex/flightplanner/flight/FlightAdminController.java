@@ -1,5 +1,7 @@
 package io.codelex.flightplanner.flight;
 
+import io.codelex.flightplanner.domain.Flight;
+import io.codelex.flightplanner.requests.AddFlightRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
@@ -16,10 +18,9 @@ public class FlightAdminController {
 
     @PutMapping("/flights")
     @ResponseStatus(HttpStatus.CREATED)
-    public Flight addFlight(@Valid @RequestBody FlightRequest flightRequest) {
-        Flight flight = flightRequest.toDomain(flightService.setFlightId());
-        flightService.addFlight(flight);
-        return flight;
+    public Flight addFlight(@Valid @RequestBody AddFlightRequest request) {
+       return flightService.addFlight(request);
+
     }
 
     @DeleteMapping(value = "/flights/{id}")

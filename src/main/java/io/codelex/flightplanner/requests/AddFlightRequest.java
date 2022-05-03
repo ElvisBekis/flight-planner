@@ -1,8 +1,7 @@
-package io.codelex.flightplanner.flight;
+package io.codelex.flightplanner.requests;
 
-import io.codelex.flightplanner.airport.Airport;
-import org.springframework.validation.annotation.Validated;
-
+import io.codelex.flightplanner.domain.Airport;
+import io.codelex.flightplanner.domain.Flight;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -10,8 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-@Validated
-public class FlightRequest {
+public class AddFlightRequest {
 
     @Valid
     @NotNull
@@ -33,7 +31,7 @@ public class FlightRequest {
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public FlightRequest(Airport from, Airport to, String carrier, String departureTime, String arrivalTime) {
+    public AddFlightRequest(Airport from, Airport to, String carrier, String departureTime, String arrivalTime) {
         this.from = from;
         this.to = to;
         this.carrier = carrier;

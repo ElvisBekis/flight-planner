@@ -1,6 +1,10 @@
 package io.codelex.flightplanner.flight;
 
-import io.codelex.flightplanner.airport.Airport;
+import io.codelex.flightplanner.airport.AirportService;
+import io.codelex.flightplanner.domain.Airport;
+import io.codelex.flightplanner.domain.Flight;
+import io.codelex.flightplanner.requests.SearchFlightRequest;
+import io.codelex.flightplanner.requests.SearchFlightReturn;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -11,15 +15,17 @@ import java.util.Set;
 public class FlightUserController {
 
     private final FlightService flightService;
+    private final AirportService airportService;
 
-    public FlightUserController(FlightService flightService) {
+    public FlightUserController(FlightService flightService, AirportService airportService) {
         this.flightService = flightService;
+        this.airportService = airportService;
     }
 
     @GetMapping("/airports")
     @ResponseBody
     public Set<Airport> searchAirportsByPhrase(@RequestParam String search) {
-        return flightService.searchAirportsByPhrase(search);
+        return airportService.searchAirportsByPhrase(search);
     }
 
     @PostMapping("/flights/search")

@@ -1,4 +1,4 @@
-package io.codelex.flightplanner.airport;
+package io.codelex.flightplanner.domain;
 
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;
@@ -48,19 +48,18 @@ public class Airport {
                 && this.airport.trim().equalsIgnoreCase(airport.airport.trim());
     }
 
-    public boolean doesAirportContainsPhrase(String search) {
-        return airport.trim()
-                .toUpperCase()
-                .contains(search.trim()
-                        .toUpperCase())
-                || city.trim()
-                .toUpperCase()
-                .contains(search.trim()
-                        .toUpperCase())
-                || country.trim()
-                .toUpperCase()
-                .contains(search.trim()
-                        .toUpperCase());
+    public boolean matchesSearchCriteria(String search) {
+        return format(airport)
+                .contains(format(search))
+                || format(city)
+                .contains(format(search))
+                || format(country)
+                .contains(format(search));
+    }
+
+    private String format(String string) {
+        return string.trim()
+                .toUpperCase();
     }
 
     @Override

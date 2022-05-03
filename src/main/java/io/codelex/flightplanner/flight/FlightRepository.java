@@ -1,18 +1,14 @@
 package io.codelex.flightplanner.flight;
 
-import io.codelex.flightplanner.airport.Airport;
+import io.codelex.flightplanner.domain.Flight;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Repository
 public class FlightRepository {
-
-    Set<Airport> airports = new HashSet<>();
 
     Set<Flight> flights = new HashSet<>();
 
@@ -28,12 +24,6 @@ public class FlightRepository {
         flights.clear();
     }
 
-    public Set<Airport> getAirports() {
-        airports.addAll(flights.stream().flatMap(f -> Stream.of(f.getFrom(), f.getTo())).collect(Collectors.toSet()));
-        return airports;
-
-    }
-
     public void deleteFlight(Long id) {
         flights.stream()
                 .filter(f -> f.getId().equals(id))
@@ -41,7 +31,7 @@ public class FlightRepository {
                 .ifPresent(f -> flights.remove(f));
     }
 
-    public boolean checkForDouble(Flight flight) {
+    public boolean exists(Flight flight) {
         return flights.stream()
                 .anyMatch(flight::isFlightEqual);
     }

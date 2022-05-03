@@ -1,6 +1,8 @@
 package io.codelex.flightplanner.flight;
 
-import io.codelex.flightplanner.airport.Airport;
+import io.codelex.flightplanner.domain.Flight;
+import io.codelex.flightplanner.requests.AddFlightRequest;
+import io.codelex.flightplanner.requests.SearchFlightRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -19,14 +21,16 @@ public class FlightService {
         this.flightRepository = flightRepository;
     }
 
-    public synchronized void addFlight(Flight flight) {
-        if (flightRepository.checkForDouble(flight)) {
+    public synchronized Flight addFlight(AddFlightRequest request) {
+        Flight flight = request.toDomain(setFlightId());
+        if (flightRepository.exists(flight)) {
             throw new ResponseStatusException(HttpStatus.CONFLICT);
         }
         if (flight.isRouteValid() || flight.isDateValid()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         flightRepository.addFlight(flight);
+        return flight;
     }
 
     public synchronized void deleteFlight(Long id) {
@@ -45,13 +49,6 @@ public class FlightService {
     public Flight getFlightById(Long id) {
        return flightRepository.getFlightById(id)
                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-    }
-
-    public Set<Airport> searchAirportsByPhrase(String search) {
-        return flightRepository.getAirports()
-                .stream()
-                .filter(airport -> airport.doesAirportContainsPhrase(search))
-                .collect(Collectors.toSet());
     }
 
     public Set<Flight> searchFlights(SearchFlightRequest request) {

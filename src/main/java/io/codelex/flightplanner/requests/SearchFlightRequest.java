@@ -1,10 +1,7 @@
-package io.codelex.flightplanner.flight;
-
-import org.springframework.validation.annotation.Validated;
+package io.codelex.flightplanner.requests;
 
 import javax.validation.constraints.NotNull;
 
-@Validated
 public class SearchFlightRequest {
 
     @NotNull

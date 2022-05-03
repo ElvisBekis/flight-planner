@@ -1,14 +1,16 @@
-package io.codelex.flightplanner.flight;
+package io.codelex.flightplanner.requests;
+
+import io.codelex.flightplanner.domain.Flight;
 
 import java.util.Set;
 
 public class SearchFlightReturn {
 
-    Set<Flight> items;
+    private Set<Flight> items;
 
-    int totalItems;
+    private int totalItems;
 
-    int page;
+    private int page;
 
     public SearchFlightReturn(Set<Flight> items, int totalItems, int page) {
         this.items = items;

@@ -1,7 +1,7 @@
-package io.codelex.flightplanner.flight;
+package io.codelex.flightplanner.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.codelex.flightplanner.airport.Airport;
+import io.codelex.flightplanner.requests.SearchFlightRequest;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -16,6 +16,7 @@ public class Flight {
     private LocalDateTime departureTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime arrivalTime;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public Flight(Long id, Airport from, Airport to, String carrier, LocalDateTime departureTime, LocalDateTime arrivalTime) {
         this.id = id;
@@ -91,7 +92,6 @@ public class Flight {
     }
 
     public boolean isRequestedFlightPresent(SearchFlightRequest request) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return from.getAirport().equals(request.getFromAirport())
                 && to.getAirport().equals(request.getToAirport())
                 && departureTime.format(formatter).equals(String.format(request.getDepartureDate(), formatter));
