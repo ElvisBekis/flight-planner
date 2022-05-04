@@ -1,7 +1,7 @@
 package io.codelex.flightplanner.flight;
 
 import io.codelex.flightplanner.domain.Flight;
-import io.codelex.flightplanner.requests.AddFlightRequest;
+import io.codelex.flightplanner.api.AddFlightRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;

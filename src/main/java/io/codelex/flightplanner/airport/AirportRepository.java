@@ -12,13 +12,13 @@ import java.util.stream.Stream;
 @Repository
 public class AirportRepository {
 
-    FlightRepository flightRepository;
+    private final FlightRepository flightRepository;
+
+    private final Set<Airport> airports = new HashSet<>();
 
     public AirportRepository(FlightRepository flightRepository) {
         this.flightRepository = flightRepository;
     }
-
-    Set<Airport> airports = new HashSet<>();
 
     public Set<Airport> getAirports() {
         airports.addAll(flightRepository.getFlights().stream().flatMap(f -> Stream.of(f.getFrom(), f.getTo())).collect(Collectors.toSet()));

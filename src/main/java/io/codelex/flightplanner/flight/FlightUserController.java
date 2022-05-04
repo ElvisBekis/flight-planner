@@ -3,8 +3,8 @@ package io.codelex.flightplanner.flight;
 import io.codelex.flightplanner.airport.AirportService;
 import io.codelex.flightplanner.domain.Airport;
 import io.codelex.flightplanner.domain.Flight;
-import io.codelex.flightplanner.requests.SearchFlightRequest;
-import io.codelex.flightplanner.requests.SearchFlightReturn;
+import io.codelex.flightplanner.api.SearchFlightRequest;
+import io.codelex.flightplanner.api.SearchFlightReturn;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

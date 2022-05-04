@@ -10,7 +10,7 @@ import java.util.Set;
 @Repository
 public class FlightRepository {
 
-    Set<Flight> flights = new HashSet<>();
+    private final Set<Flight> flights = new HashSet<>();
 
     public void addFlight(Flight flight) {
         flights.add(flight);
@@ -28,7 +28,7 @@ public class FlightRepository {
         flights.stream()
                 .filter(f -> f.getId().equals(id))
                 .findFirst()
-                .ifPresent(f -> flights.remove(f));
+                .ifPresent(flights::remove);
     }
 
     public boolean exists(Flight flight) {

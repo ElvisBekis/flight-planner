@@ -1,7 +1,7 @@
 package io.codelex.flightplanner.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.codelex.flightplanner.requests.SearchFlightRequest;
+import io.codelex.flightplanner.api.SearchFlightRequest;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -94,7 +94,7 @@ public class Flight {
     public boolean isRequestedFlightPresent(SearchFlightRequest request) {
         return from.getAirport().equals(request.getFromAirport())
                 && to.getAirport().equals(request.getToAirport())
-                && departureTime.format(formatter).equals(String.format(request.getDepartureDate(), formatter));
+                && departureTime.toLocalDate().equals(request.getDepartureDate());
     }
 
 
